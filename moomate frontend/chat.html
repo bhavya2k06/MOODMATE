@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MoodMate - Chatbot</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 min-h-screen flex flex-col font-sans text-gray-100">
+
+
+  <nav class="bg-gray-900/30 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto flex justify-between items-center px-4 py-3">
+      
+      <div class="flex items-center space-x-2">
+        <img src="image/logo.png" alt="MoodMate Logo" height="50" width="170">
+      </div>
+     
+      <a href="index.html" 
+         class="bg-white text-gray-900 font-semibold px-4 py-2 rounded-lg text-sm sm:text-base shadow hover:shadow-lg hover:scale-105 transform transition">
+        Home
+      </a>
+    </div>
+  </nav>
+
+  <div class="flex-grow flex justify-center items-center px-4 py-6">
+    <div class="w-full max-w-md bg-gray-900/40 shadow-2xl rounded-2xl p-6 border border-gray-800">
+      <h2 class="text-xl sm:text-2xl font-bold text-center text-white mb-4">Your Daily Mood Tracker</h2>
+      <p class="text-center text-gray-400 mb-6 text-sm sm:text-base">Track your mood & chat with your buddy!</p>
+
+      
+      <div id="chat-window" 
+           class="h-64 sm:h-72 md:h-80 overflow-y-auto border border-gray-800 rounded-lg p-4 bg-gray-900/60 mb-4 space-y-3">
+        <div class="flex justify-start">
+          <div class="bg-gray-700 text-gray-200 px-3 py-2 rounded-xl text-sm sm:text-base">
+            Hi! How was your day?
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="flex space-x-2">
+        <input id="user-input" 
+              type="text" 
+              placeholder="Type your mood..." 
+              class="flex-grow border border-gray-700 bg-gray-900/70 text-white rounded-lg px-3 py-2 
+                     text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-white"/>
+        <button onclick="sendMessage()" 
+                class="bg-white text-gray-900 font-semibold px-4 py-2 rounded-lg text-sm sm:text-base shadow hover:shadow-lg hover:scale-105 transform transition">
+          Send
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const chatWindow = document.getElementById("chat-window");
+    const userInput = document.getElementById("user-input");
+
+    async function sendMessage() {
+      const text = userInput.value.trim();
+      if (!text) return;
+
+      
+      const userMsg = document.createElement("div");
+      userMsg.className = "flex justify-end";
+      userMsg.innerHTML = `<div class="bg-gray-700 text-white px-3 py-2 rounded-xl">${text}</div>`;
+      chatWindow.appendChild(userMsg);
+
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+      userInput.value = "";
+
+      
+      try {
+        const response = await fetch("http://localhost:8000/analyze", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text: text, music_limit: 3 })
+        });
+
+        if (!response.ok) throw new Error("Backend not responding");
+
+        const data = await response.json();
+
+        const botMsg = document.createElement("div");
+        botMsg.className = "flex justify-start";
+        botMsg.innerHTML = `
+          <div class="bg-gray-800 text-gray-200 px-3 py-2 rounded-xl space-y-2">
+            <p><b>Emotion:</b> ${data.emotion.predicted_emotion} 
+              (${(data.emotion.confidence * 100).toFixed(1)}%)</p>
+            <p><b>Suggestions:</b> ${data.suggestions.join(", ")}</p>
+            <p><b>Music:</b></p>
+            <ul class="list-disc pl-5">
+              ${data.music_tracks.map(track => 
+                `<li><a href="${track.url}" target="_blank" class="text-blue-400 underline">${track.name} - ${track.artist}</a></li>`
+              ).join("")}
+            </ul>
+          </div>
+        `;
+        chatWindow.appendChild(botMsg);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+
+      } catch (err) {
+        
+        const botMsg = document.createElement("div");
+        botMsg.className = "flex justify-start";
+        botMsg.innerHTML = `<div class="bg-red-600 text-white px-3 py-2 rounded-xl">⚠️ Error: ${err.message}</div>`;
+        chatWindow.appendChild(botMsg);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+      }
+    }
+  </script>
+
+</body>
+</html>
+
+
+

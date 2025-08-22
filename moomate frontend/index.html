@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MoodMate - Welcome</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in-up { animation: fadeInUp 1.2s ease-out forwards; }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 min-h-screen font-sans text-gray-100">
+
+  
+<nav class="bg-gray-900/30 backdrop-blur-md sticky top-0 z-50">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="flex justify-between items-center py-4">
+      <div class="flex items-center space-x-2">
+        <img src="image/logo.png" alt="MoodMate Logo" class="h-16 w-auto sm:h-16">
+      </div>
+
+      
+      <button id="menu-btn" class="sm:hidden text-white text-2xl focus:outline-none">
+        ☰
+      </button>
+
+     
+      <ul class="hidden sm:flex space-x-6 text-gray-300 font-medium">
+        <li><a href="#about" class="hover:text-white transition">About Us</a></li>
+        <li><a href="#services" class="hover:text-white transition">Our Services</a></li>
+      </ul>
+    </div>
+
+    
+    <div id="mobile-menu" class="hidden sm:hidden flex-col space-y-2 pb-3">
+      <a href="#about" class="block text-gray-300 hover:text-white transition text-center">About Us</a>
+      <a href="#services" class="block text-gray-300 hover:text-white transition text-center">Our Services</a>
+    </div>
+  </div>
+</nav>
+
+
+ 
+  <section class="text-center py-20 px-6 fade-in-up">
+    <h1 class="text-4xl sm:text-6xl font-extrabold text-white mb-4">Welcome to MoodMate</h1>
+    <p class="text-base sm:text-lg text-gray-400 mb-8 leading-relaxed max-w-2xl mx-auto">
+      Your daily companion for emotional wellness — track your moods, get uplifting suggestions, and stay positive every day.
+    </p>
+    <a href="chat.html" 
+       class="inline-block bg-white text-gray-900 font-semibold px-8 py-3 rounded-full shadow hover:shadow-lg hover:scale-105 transform transition">
+      Check Your Mood
+    </a>
+  </section>
+
+ 
+  <section id="about" class="max-w-4xl mx-auto text-center py-16 px-6">
+    <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">About MoodMate</h2>
+    <p class="text-gray-400 leading-relaxed text-base sm:text-lg">
+      MoodMate isn’t just an app — it’s your wellness partner.  
+      From mood tracking to personalized suggestions, calming songs, and daily reflections,  
+      MoodMate helps you find balance and positivity every day.  
+    </p>
+  </section>
+
+  
+  <section id="services" class="max-w-6xl mx-auto text-center py-16 px-6">
+    <h2 class="text-3xl sm:text-4xl font-bold text-white mb-10">Our Services</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      
+      <div class="bg-gray-900/40 rounded-2xl p-8 flex flex-col items-center hover:scale-105 hover:bg-gray-900/60 transition shadow">
+        <img src="image/chat.png" alt="AI Chat Buddy Icon" class="h-16 w-16 mb-4">
+        <h3 class="text-xl font-semibold text-white mb-2">AI Chat Buddy</h3>
+        <p class="text-gray-400 text-sm sm:text-base">
+          A friendly AI companion that listens, understands, and motivates you daily.
+        </p>
+      </div>
+
+      <div class="bg-gray-900/40 rounded-2xl p-8 flex flex-col items-center hover:scale-105 hover:bg-gray-900/60 transition shadow">
+        <img src="image/music.png" alt="Song Suggestions Icon" class="h-16 w-16 mb-4">
+        <h3 class="text-xl font-semibold text-white mb-2">Song Suggestions</h3>
+        <p class="text-gray-400 text-sm sm:text-base">
+          Personalized music recommendations to uplift your mood and relax your mind.
+        </p>
+      </div>
+
+      <div class="bg-gray-900/40 rounded-2xl p-8 flex flex-col items-center hover:scale-105 hover:bg-gray-900/60 transition shadow">
+        <img src="image/person.png" alt="Daily Tips Icon" class="h-16 w-16 mb-4">
+        <h3 class="text-xl font-semibold text-white mb-2">What You Should Do</h3>
+        <p class="text-gray-400 text-sm sm:text-base">
+          Simple daily guidance and wellness tips to help you stay positive and balanced.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  
+  <footer class="text-gray-500 text-center py-6 mt-12 text-sm border-t border-gray-800">
+    <p>&copy; 2025 MoodMate. All rights reserved.</p>
+  </footer>
+
+  
+  <script>
+    const menuBtn = document.getElementById("menu-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+    menuBtn.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
+    });
+  </script>
+
+</body>
+</html>

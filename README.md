@@ -34,7 +34,7 @@ Open frontend/index.html in your browser
 
 <h2>Demo Video</h2>
 <p>
-<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">▶ Watch Demo</a>
+<a href="https://youtu.be/1SPgJUrsiIM" target="_blank">▶ Watch Demo</a>
 </p>
 
 <h2>Contributors</h2>
